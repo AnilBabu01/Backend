@@ -46,6 +46,13 @@ router
 router
   .route("/change-donation-type")
   .post(adminAuth(), adminController.changeDonationType);
+
+  
+router
+  .route("/delete-donation-type")
+  .post(adminAuth(), donationController.deleteDonationType);
+
+  
 router
   .route("/donation-type")
   .put(adminAuth(), adminController.EditDonationType);
@@ -178,6 +185,9 @@ router
   .route("/search-online-cheque")
   .get(adminAuth(), donationController.SpecificsearchOnlinecheque);
 
+
+
+  
 //dashboard api admin
 router
   .route("/dash-admin-total-elec")
@@ -189,6 +199,8 @@ router
   .route("/dash-admin-total-online")
   .get(adminAuth(), donationController.dashAdminTotalOnline);
 
+
+
 //dashboard api employee
 router
   .route("/dash-employee-total-elec")
@@ -199,3 +211,5 @@ router
 router
   .route("/dash-employee-total-online")
   .get(adminAuth(), donationController.dashemployeeTotalOnline);
+
+router.post('/delete-meanual-donation',adminAuth(), donationController.deletemanualDonation)

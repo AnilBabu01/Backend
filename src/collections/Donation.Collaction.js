@@ -1729,6 +1729,7 @@ class DonationCollaction {
           };
         });
     }
+
     if (status == "0") {
       await TblDonationTypes.update(
         {
@@ -2932,6 +2933,7 @@ class DonationCollaction {
 
   dashAdminTotal = async () => {
     const today = new Date();
+
     const startOfToday = new Date(
       today.getFullYear(),
       today.getMonth(),
@@ -3451,68 +3453,32 @@ class DonationCollaction {
     };
   };
 
-  dashemployeeTotalOnline = async (req) => {
-    //   const donationResultsPromise = TblNewDonation.findAll({
-    //     where: {
-    //       id: req.user.id,
-    //     },
-    //     attributes: [
-    //       "ADDED_BY",
-    //       "MODE_OF_DONATION",
-    //       [
-    //         TblNewDonation.sequelize.fn(
-    //           "SUM",
-    //           TblNewDonation.sequelize.col("tbl_donations.amount")
-    //         ),
-    //         "total_amount",
-    //       ],
-    //     ],
-    //     group: ["ADDED_BY", "MODE_OF_DONATION"],
-    //   });
-    //   const employeeResultsPromise = TblEmployees.findAll({
-    //     attributes: ["id", "Username"],
-    //   });
-    //   const [donationResults, employeeResults] = await Promise.all([
-    //     donationResultsPromise,
-    //     employeeResultsPromise,
-    //   ]);
-    //   const employeeMap = {};
-    //   employeeResults.forEach((employee) => {
-    //     employeeMap[employee.id] = employee.Username;
-    //   });
-    //   const modeOfDonationMap = {
-    //     ONLINE: "Online",
-    //     CHEQUE: "Cheque",
-    //   };
-    //   const donationResultsByUser = {};
-    //   donationResults.forEach((donation) => {
-    //     const employeeName = employeeMap[donation.ADDED_BY];
-    //     const modeOfDonation = modeOfDonationMap[donation.MODE_OF_DONATION];
-    //     const totalAmount = donation.dataValues.total_amount;
-    //     if (!donationResultsByUser[donation.ADDED_BY]) {
-    //       donationResultsByUser[donation.ADDED_BY] = {
-    //         created_by: donation.ADDED_BY,
-    //         employee_name: employeeName,
-    //         Online_amount: 0,
-    //         Cheque_amount: 0,
-    //         total: 0,
-    //       };
-    //     }
-    //     const userResult = donationResultsByUser[donation.ADDED_BY];
-    //     switch (modeOfDonation) {
-    //       case modeOfDonationMap.ONLINE:
-    //         userResult.Online_amount = totalAmount;
-    //         break;
-    //       case modeOfDonationMap.CHEQUE:
-    //         userResult.Cheque_amount = totalAmount;
-    //         break;
-    //     }
-    //     userResult.total = userResult.Online_amount + userResult.Cheque_amount;
-    //   });
-    //   const result = Object.values(donationResultsByUser);
-    //   return {
-    //     data: result,
-    //   };
+  checkmanualDonation = async (req, res) => {
+    const response = await db.ManualDonation.findOne({
+      where: {
+        id: req.body.id,
+      },
+    });
+    return response;
+  };
+
+  deletemanualDonation = async (req, res) => {
+    const response = await db.ManualDonation.destroy({
+      where: {
+        id: req.body.id,
+      },
+    });
+    return response;
+  };
+
+  deleteDonationType = async (req, res) => {
+    const response = await TblDonationTypes.destroy({
+      where: {
+        id: req.body.id,
+        modeOfType: req.body.type,
+      },
+    });
+    return response;
   };
 }
 

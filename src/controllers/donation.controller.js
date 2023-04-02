@@ -601,12 +601,29 @@ const dashAdminTotalOnline = catchAsync(async (req, res) => {
 });
 
 const dashemployeeTotalOnline = catchAsync(async (req, res) => {
-  const data = await donationService.dashemployeeTotalOnline(req);
-
-  res.status(200).send({
+  const data = await donationService.dashemployeeTotalOnline(req,res);
+  res.status(httpStatus.OK).send({
     data,
   });
 });
+
+
+const deletemanualDonation = catchAsync(async (req, res) => {
+
+
+  const data = await donationService.deletemanualDonation(req, res);
+  return data;
+});
+
+const deleteDonationType = catchAsync(async (req, res) => {
+
+
+  const data = await donationService.deleteDonationType(req, res);
+  return data;
+});
+
+
+
 
 module.exports = {
   cancelEachVoucher,
@@ -662,4 +679,6 @@ module.exports = {
   getAllocatedVoucherList,
   searchElectric,
   searchManual,
+  deletemanualDonation,
+  deleteDonationType
 };
